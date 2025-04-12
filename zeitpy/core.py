@@ -18,7 +18,6 @@ from sklearn.metrics import mean_squared_error, root_mean_squared_error, \
     mean_absolute_error, mean_absolute_percentage_error
 
 
-
 class Zeit:  
     '''
     A class for computing main time series operations, including visualizations, statistical tests, 
@@ -52,7 +51,6 @@ class Zeit:
         Example:
         --------
         >>> import zeitpy as zp
-        >>> file_path = 'ibovespa_stock.csv'
         >>> file_path = 'ibovespa_stock.csv'
         >>> zo = zp.Zeit(file_path, date_format = '%Y-%m-%d', date_col = 'Date', data_col = 'Close')
         >>> zo.data.head()

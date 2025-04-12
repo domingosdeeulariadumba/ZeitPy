@@ -1,25 +1,32 @@
 from setuptools import setup, find_packages
 
+# Loading README.md file
+with open('README.md') as f:
+    readme = f.read()
+
 setup(
     name = 'zeitpy',
     version = '0.1.0',
     packages = find_packages(),
     install_requires = [
-        'numpy>=1.21.0',
-        'pandas>=1.3.0',
-        'scipy>=1.7.0',
-        'matplotlib>=3.4.0',
-        'statsmodels>=0.12.0'        
+        'numpy>=1.26.4',
+        'pandas>=2.2.2',
+        'scipy>=1.13.1',
+        'scikit-learn>=1.5.1',
+        'matplotlib>=3.9.2',
+        'seaborn>=0.13.2',
+        'statsmodels>=0.14.2'        
     ],
     author='Domingos de Eulária Dumba',
     author_email='domingosdeeulariadumba@gmail.com',
     description = ('A package for time series analysis — from EDA to '\
-                   'Forecasting and Performance Assessment'),
-    url = 'https://github.com/domingosdeeulariadumba.com',
+                   'Forecasting and Performance Assessment.'),
+    long_description=readme,
+    license="MIT",
+    url = 'https://github.com/domingosdeeulariadumba.com/ZeitPy',
     classifiers=[
         'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: MIT License',
-        'Operating System :: OS Independent' 
+        'Operating System :: OS Independent',
         'Intended Audience :: Data Scientists/Analysts',
         'Intended Audience :: Researchers',
         'Intended Audience :: Developers',        

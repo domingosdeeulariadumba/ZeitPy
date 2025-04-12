@@ -1,0 +1,32 @@
+Metadata-Version: 2.4
+Name: zeitpy
+Version: 0.1.0
+Summary: A package for time series analysis — from EDA to Forecasting and Performance Assessment.
+Home-page: https://github.com/domingosdeeulariadumba.com/ZeitPy
+Author: Domingos de Eulária Dumba
+Author-email: domingosdeeulariadumba@gmail.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Data Scientists/Analysts
+Classifier: Intended Audience :: Researchers
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Requires-Python: >=3.12.7
+License-File: LICENSE
+Requires-Dist: numpy>=1.26.4
+Requires-Dist: pandas>=2.2.2
+Requires-Dist: scipy>=1.13.1
+Requires-Dist: scikit-learn>=1.5.1
+Requires-Dist: matplotlib>=3.9.2
+Requires-Dist: seaborn>=0.13.2
+Requires-Dist: statsmodels>=0.14.2
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
