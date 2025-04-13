@@ -67,6 +67,7 @@ class Zeit:
         2018-01-08    79379.0
         Name: Close, dtype: float64
         '''
+        self.dataset = dataset
         self.format = date_format
         self.ts_attr = date_col, data_col
         self.data = self.inject()
