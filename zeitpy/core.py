@@ -179,7 +179,7 @@ class Zeit:
         ts = self.data
         ts_rolling = ts.rolling(window = window).mean().dropna()
         rotation = plot_args['rotation'] if 'rotation' in plot_args else 45
-        ylabel = plot_args['ylabel'] if 'ylabel' in plot_args else ts.name
+        y_label = plot_args['y_label'] if 'y_label' in plot_args else ts.name
         title = plot_args['title'] if 'title' in plot_args else 'Trend Analysis'            
         
         # Plotting the series and trend      
@@ -187,7 +187,7 @@ class Zeit:
         plt.plot(ts_rolling, label = 'Moving Average')
         plt.title(title)
         plt.xticks(rotation = rotation)
-        plt.ylabel(ylabel)
+        plt.ylabel(y_label)
         plt.legend()
         plt.show()        
     
