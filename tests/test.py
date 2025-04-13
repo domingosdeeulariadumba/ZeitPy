@@ -70,7 +70,7 @@ class TestZeit(unittest.TestCase):
     def test_seasonal_plots(self):
         zo = zp.Zeit(self.data)
         with patch.object(plt, 'show') as mock_show:
-            zo.seasonal_plots(period = 'year', freq = 'month', y_label = 'sales')
+            zo.seasonal_plots(period = 'year', freq = 'month', ylabel = 'sales')
             mock_show.assert_called_once()       
     
     # Test for Augmented Dickey-Fuller test
@@ -79,6 +79,7 @@ class TestZeit(unittest.TestCase):
         with patch('builtins.print') as mock_print:
             zo.adfuller_test()
             self.assertEqual(mock_print.call_count, 3)
+
             
     # Testing the method for splitting data into train and test sets        
     def test_split_data(self):
@@ -108,6 +109,6 @@ class TestZeit(unittest.TestCase):
         with patch('zeitpy.core.display') as mock_display:
             zo.evaluate(forecast_results, test.data)
             mock_display.assert_called_once()
-        with patch('builtins.print') as mock_print:
-            zo.evaluate(forecast_results, test.data, view = 'not in options')
-            mock_print.assert_called_once()
+        with patch('zeitpy.core.display') as mock_display:
+            zo.evaluate(forecast_results, test.data, 'metrics')
+            mock_display.assert_called_once()

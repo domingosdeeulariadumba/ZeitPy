@@ -22,8 +22,14 @@ from sklearn.metrics import mean_squared_error, root_mean_squared_error, \
 class Zeit:  
     '''
     A class for computing main time series operations, including visualizations, statistical tests, 
-    and model evaluation metrics.
+    and forecasting performance evaluation.
     ''' 
+
+    '''
+    Implementation
+    --------------
+    '''  
+
     def __init__(
             self, dataset: pd.DataFrame | pd.Series | str, date_format: str = None, 
             date_col: str = None, data_col: str = None
@@ -34,13 +40,12 @@ class Zeit:
         Parameters:
         ---------- 
         dataset : str
-            The DataFrame, Series or csv file file path containing the time series data to create
-            the Zeit object.
+            The DataFrame, Series or csv file file path containing the time series.
         date_format : str
             The format of the "date_col" instances to be converted into datetime — Ex.: '20' should
             be passed as '%y' for annual observations; '10/27/2019' as '%m/%d/%Y', etc.
         date_col : str
-            The column containing the time data.
+            The column containing the time observations.
         data_col : str
             The column containing the values of the series.
 
@@ -62,19 +67,15 @@ class Zeit:
         2018-01-08    79379.0
         Name: Close, dtype: float64
         '''
-        self.input = dataset
         self.format = date_format
         self.ts_attr = date_col, data_col
         self.data = self.inject()
-
-    '''
-            Implementation
-            --------------
-    '''     
+  
 
     def inject(self) -> pd.Series:
         '''
-        Transforms any time series data whether it is a Pandas Series/DataFrame or csv file into a Pandas time series.
+        Transforms any time series data whether it is a Pandas Series/DataFrame or csv file into a Pandas
+        time series.
 
         Returns:
         -------
@@ -87,28 +88,31 @@ class Zeit:
         '''
         date_col, data_col = self.ts_attr
         if self.format is None:
-            if isinstance(self.input.index,  pd.DatetimeIndex) and isinstance(self.input,  pd.Series):
-                ts = self.input.copy()
+            if isinstance(self.dataset.index,  pd.DatetimeIndex) and isinstance(self.dataset,  pd.Series):
+                ts = self.dataset.copy()
             else:
-                raise TypeError('For series with indexes not in datetime format, "date_format" field must not be None')        
+                raise TypeError(
+                    'For series with indexes not in datetime format, "date_format" field must ' \
+                    'not be None'
+                                )        
         else:        
-            if isinstance(self.input, pd.Series):         
-                    ts = self.input.copy()
+            if isinstance(self.dataset, pd.Series):         
+                    ts = self.dataset.copy()
                     ts.index = pd.to_datetime(ts.index, format = self.format)
                     ts.index.name = None
-            elif isinstance(self.input, pd.DataFrame):            
+            elif isinstance(self.dataset, pd.DataFrame):            
                 if (data_col is None) or (date_col is None):
                     raise TypeError('For DataFrames, either "data_col" or "date_col" must not be "None"')
                 else:            
-                    df = self.input.copy()
+                    df = self.dataset.copy()
                     ts = pd.Series(
                         data = df[data_col].values, 
                         index = pd.to_datetime(df[date_col], format = self.format),
                         name = data_col
                         )
-            elif isinstance(self.input, str):
-                if self.input.endswith('.csv'):
-                    df = pd.read_csv(self.input)
+            elif isinstance(self.dataset, str):
+                if self.dataset.endswith('.csv'):
+                    df = pd.read_csv(self.dataset)
                     ts = pd.Series(
                         data = df[data_col].values, 
                         index = pd.to_datetime(df[date_col], format = self.format),
@@ -127,8 +131,8 @@ class Zeit:
         Parameters:
         ----------        
         model : str, optional
-            Type of seasonal component, whether it Additive or Multiplicative — 'additive' and 'multiplicative'. 
-            Default is 'additive'. 
+            The type of seasonal decomposition, whether it Additive or Multiplicative — 'additive'
+            and 'multiplicative. Default is 'additive'. 
         period : int, optional
             Period of the series (e.g., 1 for annual, 4 for quarterly, etc). Default is 12.
 
@@ -179,7 +183,7 @@ class Zeit:
         ts = self.data
         ts_rolling = ts.rolling(window = window).mean().dropna()
         rotation = plot_args['rotation'] if 'rotation' in plot_args else 45
-        y_label = plot_args['y_label'] if 'y_label' in plot_args else ts.name
+        ylabel = plot_args['ylabel'] if 'ylabel' in plot_args else ts.name
         title = plot_args['title'] if 'title' in plot_args else 'Trend Analysis'            
         
         # Plotting the series and trend      
@@ -187,7 +191,7 @@ class Zeit:
         plt.plot(ts_rolling, label = 'Moving Average')
         plt.title(title)
         plt.xticks(rotation = rotation)
-        plt.ylabel(y_label)
+        plt.ylabel(ylabel)
         plt.legend()
         plt.show()        
     
@@ -255,7 +259,7 @@ class Zeit:
 
     def seasonal_plots(
             self, period: str, freq: str, ax: matplotlib.axes._axes.Axes = None, 
-            title: str = None, x_label: str = None, y_label: str = None
+            title: str = None, xlabel: str = None, ylabel: str = None
             ) -> None:   
         '''
         Displays seasonal plots for visualizing seasonal patterns in time series data.
@@ -278,10 +282,10 @@ class Zeit:
         title : str, optional
             Title of the plot. If None, a default title will be generated.
 
-        x_label : str, optional
+        xlabel : str, optional
             Label for the x-axis. If None, the frequency name will be used. If 'hide', the label will not be shown.
 
-        y_label : str, optional
+        ylabel : str, optional
             Label for the y-axis. If None, the name of the series will be used.
 
         Returns:
@@ -317,24 +321,24 @@ class Zeit:
             ax.set_title(f'Seasonal Plot ({period}/{freq})')
     
         # Setting label options for x axis    
-        if x_label is None:
+        if xlabel is None:
             plt.xlabel(freq)    
-        elif x_label == 'hide':
+        elif xlabel == 'hide':
             plt.xlabel('')    
         else:
-            plt.xlabel(x_label)
+            plt.xlabel(xlabel)
     
         # Setting label options for y axis     
-        if y_label is None:
+        if ylabel is None:
             plt.ylabel(data.columns[0])    
         else:
-            plt.ylabel(y_label)
+            plt.ylabel(ylabel)
     
         plt.legend(fontsize = 8, loc = 'best')
         plt.show()            
 
 
-    def lags(self, n_lags: int = 10, title: str ='Lag Plots') -> None:
+    def lags(self, n_lags: int = 10, title: str = 'Lag Plots') -> None:
         '''
         Generates lag plots to visualize the autocorrelation of a time series.
 
@@ -498,7 +502,7 @@ class Zeit:
     def evaluate(
             self, forecast_results: list[tuple[str, pd.Series]], test_data: pd.Series,
             view: str = 'results'
-            ) -> None:
+            ) -> None | ValueError:
         '''
         Assesses the performance of forecast models using various metrics.
 
@@ -558,5 +562,5 @@ class Zeit:
         elif view == 'results':
             display(df_comp.head(10).T)
         else:
-            print("This option is not available! :(\nPlease choose whether you want to display the performance inserting "
+            raise ValueError("This option is not available! :(\nPlease choose whether you want to display the performance inserting "
                   "\033[1m'metrics'\033[0m or \033[1m'results'\033[0m in case of forecast comparison.")

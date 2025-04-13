@@ -6,7 +6,7 @@ with open('README.md') as f:
 
 # Loading the LICENSE file
 with open('LICENSE') as f:
-    license = f.read()
+    _license = f.read()
 
 setup(
     name = 'zeitpy',
@@ -21,14 +21,14 @@ setup(
         'seaborn>=0.13.2',
         'statsmodels>=0.14.2'        
     ],
-    author='Domingos de Eulária Dumba',
-    author_email='domingosdeeulariadumba@gmail.com',
+    author = 'Domingos de Eulária Dumba',
+    author_email = 'domingosdeeulariadumba@gmail.com',
     description = ('A package for time series analysis — from EDA to '\
                    'forecasting and performance assessment.'),
-    long_description=readme,
-    license=license,
+    long_description = readme,
+    license = _license,
     url = 'https://github.com/domingosdeeulariadumba.com/ZeitPy',
-    classifiers=[
+    classifiers = [
         'Programming Language :: Python :: 3',
         'Operating System :: OS Independent',
         'Intended Audience :: Data Scientists/Analysts',
