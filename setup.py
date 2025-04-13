@@ -24,7 +24,7 @@ setup(
     author='Domingos de Eulária Dumba',
     author_email='domingosdeeulariadumba@gmail.com',
     description = ('A package for time series analysis — from EDA to '\
-                   'Forecasting and Performance Assessment.'),
+                   'forecasting and performance assessment.'),
     long_description=readme,
     license=license,
     url = 'https://github.com/domingosdeeulariadumba.com/ZeitPy',
