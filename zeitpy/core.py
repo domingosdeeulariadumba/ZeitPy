@@ -8,6 +8,7 @@ import matplotlib
 import seaborn as sns
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
+from IPython.display import display
 from typing import Self
 from scipy.signal import periodogram
 from statsmodels.tsa.stattools import adfuller
@@ -119,7 +120,7 @@ class Zeit:
         return ts
     
     
-    def seasonal_decomposition(self, model: str = 'additive', period: int = 52, **plot_args) -> None:
+    def seasonal_decomposition(self, model: str = 'additive', period: int = 12, **plot_args) -> None:
         '''
         Presents the seasonal decomposition of the time series using moving averages.
 
@@ -129,7 +130,7 @@ class Zeit:
             Type of seasonal component, whether it Additive or Multiplicative — 'additive' and 'multiplicative'. 
             Default is 'additive'. 
         period : int, optional
-            Period of the series (e.g., 1 for annual, 4 for quarterly, etc). Default is 52.
+            Period of the series (e.g., 1 for annual, 4 for quarterly, etc). Default is 12.
 
         Returns:
         -------
@@ -176,20 +177,19 @@ class Zeit:
         '''
         # Series and main parameters of plot        
         ts = self.data
+        ts_rolling = ts.rolling(window = window).mean().dropna()
         rotation = plot_args['rotation'] if 'rotation' in plot_args else 45
         ylabel = plot_args['ylabel'] if 'ylabel' in plot_args else ts.name
-        title = plot_args['title'] if 'title' in plot_args \
-            else f'Trend Analysis ({ts.index.min().year} - {ts.index.max().year})'            
+        title = plot_args['title'] if 'title' in plot_args else 'Trend Analysis'            
         
         # Plotting the series and trend      
         plt.plot(ts, label = 'Original Data')
-        plt.plot(ts.rolling(window = window).mean(), label = 'Moving Average')
+        plt.plot(ts_rolling, label = 'Moving Average')
         plt.title(title)
         plt.xticks(rotation = rotation)
         plt.ylabel(ylabel)
         plt.legend()
-        plt.show()
-          
+        plt.show()        
     
     
     def periodogram(
@@ -531,7 +531,7 @@ class Zeit:
         >>>     ('SARIMA', sarima_forecast),
         >>>     ('Prophet', prophet_forecast)
         >>> ]
-        >>> evaluate(forecast_results, test_data)
+        >>> zo.evaluate(forecast_results, test_data)
         '''    
         # Inserting the test set to form the first column of the comparison DataFrame
         df_comp = pd.DataFrame(data = test_data.values, index = test_data.index, columns = ['Actual'])

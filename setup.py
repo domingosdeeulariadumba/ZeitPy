@@ -4,6 +4,10 @@ from setuptools import setup, find_packages
 with open('README.md') as f:
     readme = f.read()
 
+# Loading the LICENSE file
+with open('LICENSE') as f:
+    license = f.read()
+
 setup(
     name = 'zeitpy',
     version = '0.1.0',
@@ -22,7 +26,7 @@ setup(
     description = ('A package for time series analysis — from EDA to '\
                    'Forecasting and Performance Assessment.'),
     long_description=readme,
-    license="MIT",
+    license=license,
     url = 'https://github.com/domingosdeeulariadumba.com/ZeitPy',
     classifiers=[
         'Programming Language :: Python :: 3',
