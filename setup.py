@@ -29,6 +29,7 @@ setup(
     license = _license,
     url = 'https://github.com/domingosdeeulariadumba.com/ZeitPy',
     classifiers = [
+        'License :: OSI Aproved :: MIT',
         'Programming Language :: Python :: 3',
         'Operating System :: OS Independent',
         'Intended Audience :: Data Scientists/Analysts',

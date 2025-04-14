@@ -42,8 +42,8 @@ class Zeit:
         dataset : str
             The DataFrame, Series or csv file file path containing the time series.
         date_format : str
-            The format of the "date_col" instances to be converted into datetime — Ex.: '20' should
-            be passed as '%y' for annual observations; '10/27/2019' as '%m/%d/%Y', etc.
+            The format of the "date_col" instances to be converted into datetime — Ex.: '20' 
+            should be passed as '%y' for annual observations; '10/27/2019' as '%m/%d/%Y', etc.
         date_col : str
             The column containing the time observations.
         data_col : str
@@ -56,10 +56,16 @@ class Zeit:
         
         Example:
         --------
-        >>> import zeitpy as zp
-        >>> file_path = 'ibovespa_stock.csv'
-        >>> zo = zp.Zeit(file_path, date_format = '%Y-%m-%d', date_col = 'Date', data_col = 'Close')
-        >>> zo.data.head()
+        In [1]: import zeitpy as zp
+        ...: file_path = 'ibovespa_stock.csv'
+        ...: zo = zp.Zeit(
+        ...:     file_path, 
+        ...:     date_format = '%Y-%m-%d', 
+        ...:     date_col = 'Date', 
+        ...:     data_col = 'Close'
+        ...:     )
+        ...: zo.data.head()
+        Out [1]:
         2018-01-02    77891.0
         2018-01-03    77995.0
         2018-01-04    78647.0
@@ -85,7 +91,7 @@ class Zeit:
         
         Example:
         --------
-        >>> zo.inject()
+        In [2]: zo.inject()
         '''
         date_col, data_col = self.ts_attr
         if self.format is None:
@@ -144,7 +150,7 @@ class Zeit:
         
         Example:
         --------
-        >>> zo.seasonal_decomposition()
+        In [3]: zo.seasonal_decomposition()
         '''
         # Decomposing the time series
         ts = self.data.copy()
@@ -178,7 +184,7 @@ class Zeit:
         
         Example:
         --------
-        >>> zo.trend()
+        In [4]: zo.trend()
         '''
         # Series and main parameters of plot        
         ts = self.data
@@ -204,20 +210,21 @@ class Zeit:
         '''
         Displays the periodogram of the given time series data.
 
-        The periodogram helps identify the dominant frequencies in the time series, providing insights into 
-        its periodic components.
+        The periodogram helps identify the dominant frequencies in the time series, providing insights
+        into its periodic components.
 
         Parameters:
         ----------
         detrend : str, optional
-            The detrending method to use. Options include 'linear' (default) or 'constant'. Detrending removes
-            trends from the data before calculating the periodogram.
+            The detrending method to use. Options include 'linear' (default) or 'constant'. Detrending
+            removes trends from the data before calculating the periodogram.
 
         ax : matplotlib.axes._axes.Axes, optional
             The Axes object on which to plot the periodogram. If None, a new figure and axes are created.
 
         fs : int, optional
-            The sampling frequency of the data. Default is 365, which is suitable for daily data over a year.
+            The sampling frequency of the data. Default is 365, which is suitable for daily data over a
+            year.
 
         color : str, optional
             The color of the plot line. Default is 'brown'.
@@ -229,7 +236,7 @@ class Zeit:
         
         Example:
         --------
-        >>> zo.periodogram()
+        In [5]: zo.periodogram()
         '''           
         # Time series and Number of observations
         ts, nobs = self.data, len(self.data)
@@ -241,9 +248,11 @@ class Zeit:
         
         # Frequency adjustment
         freqs = [1, 2, 3, 4, 6, 12, 26, 52, 104]
-        freqs_labels = ['Annual (1)', 'Semiannual (2)', 'Triannual (3)',
-                        'Quarterly (4)', 'Bimonthly (6)', 'Monthly (12)',
-                        'Biweekly (26)', 'Weekly (52)', 'Semiweekly (104)']
+        freqs_labels = [
+            'Annual (1)', 'Semiannual (2)', 'Triannual (3)',
+           'Quarterly (4)', 'Bimonthly (6)', 'Monthly (12)',
+           'Biweekly (26)', 'Weekly (52)', 'Semiweekly (104)'
+           ]
 
         # Plotting the periodogram
         if ax is None:
@@ -265,26 +274,30 @@ class Zeit:
         '''
         Displays seasonal plots for visualizing seasonal patterns in time series data.
 
-        This method generates line plots that illustrate the variations in the time series across specified 
-        seasonal periods, helping to identify trends and seasonal effects.
+        This method generates line plots that illustrate the variations in the time series across 
+        specified seasonal periods, helping to identify trends and seasonal effects.
 
         Parameters:
         ----------
         period : str
-            The seasonal period. This is used to group the data for the seasonal plot.
+            The seasonal period. This is used to group the data for the seasonal plot. Options 
+            include "year", "month", "week of year", "day of month", "day of week", and "day 
+            of year".
 
         freq : str
-            The the frequency of the seasonality. This typically denotes the time interval 
-            at which the seasonal effect is observed (e.g., month, week).
+            The frequency of the seasonality. This typically denotes the time interval at which the
+            seasonal effect is observed (shares the same options with "period" parameter).
 
         ax : matplotlib.axes._axes.Axes, optional
-            The Axes object on which to plot the seasonal plot. If None, a new figure and axes are created.
+            The Axes object on which to plot the seasonal plot. If None, a new figure and axes are
+            created.
 
         title : str, optional
             Title of the plot. If None, a default title will be generated.
 
         xlabel : str, optional
-            Label for the x-axis. If None, the frequency name will be used. If 'hide', the label will not be shown.
+            Label for the x-axis. If None, the frequency name will be used. If 'hide', the label 
+            will not be shown.
 
         ylabel : str, optional
             Label for the y-axis. If None, the name of the series will be used.
@@ -295,7 +308,7 @@ class Zeit:
 
         Example:
         --------
-        >>> zo.seasonal_plots('year', 'month', x_label = 'hide')
+        In [6]: zo.seasonal_plots('year', 'month', xlabel = 'hide')
         '''
         # Extracting date elements from the index
         ts = self.data
@@ -343,9 +356,10 @@ class Zeit:
         '''
         Generates lag plots to visualize the autocorrelation of a time series.
 
-        This method creates scatter plots of the time series against its lagged versions, helping to assess 
-        the degree of autocorrelation at different lags. Each plot includes a regression line to indicate 
-        the strength of the relationship between the original series and its lagged version.
+        This method creates scatter plots of the time series against its lagged versions, helping 
+        to assess the degree of autocorrelation at different lags. Each plot includes a regression
+        line to indicate the strength of the relationship between the original series and its 
+        lagged version.
 
         Parameters:
         ----------        
@@ -362,7 +376,7 @@ class Zeit:
 
         Example:
         --------
-        >>> zo.lags()
+        In [7]: zo.lags()
         '''
         ts = self.data    
         fig, axes = plt.subplots(
@@ -399,7 +413,7 @@ class Zeit:
 
         Example:
         --------
-        >>> zo.adfuller_test()
+        In [8]: zo.adfuller_test()
         '''
         # Performing the Augmented Dickey-Fuller Test    
         adft = adfuller(self.data, autolag = 'AIC')
@@ -447,7 +461,7 @@ class Zeit:
 
         Example:
         --------
-        >>> train, test = zo.split_data()
+        In [9]: train, test = zo.split_data()
         '''
         train_size = round(len(self.data) * train_proportion)
         train_set = self.data.iloc[:train_size]
@@ -458,11 +472,12 @@ class Zeit:
 
     def correlogram(self, lags: int = 6, ACF: bool = True, PACF: bool = True) -> None:   
         '''
-        Plots the Autocorrelation Function (ACF) and Partial Autocorrelation Function (PACF) of a time series.
+        Plots the Autocorrelation Function (ACF) and Partial Autocorrelation Function (PACF) of a time
+        series.
 
         This function generates correlograms to help assess the autocorrelation and partial autocorrelation 
-        of the time series, which are crucial for identifying the orders of Autoregressive (AR) and Moving Average 
-        (MA) components in time series models.
+        of the time series, which are crucial for identifying the orders of Autoregressive (AR) and Moving
+        Average (MA) components in time series models.
 
         Parameters:
         ----------
@@ -482,7 +497,7 @@ class Zeit:
 
         Example:
         --------
-        >>> zo.correlogram(lags = 8)
+        In [10]: zo.correlogram(lags = 8)
         '''     
         # Setting the plots for correlograms
         fig, axes = plt.subplots(1, 2, figsize = (15, 6))
@@ -501,9 +516,9 @@ class Zeit:
 
 
     def evaluate(
-            self, forecast_results: list[tuple[str, pd.Series]], test_data: pd.Series,
+            self, forecast_models: list[tuple[str, pd.Series]], test_data: pd.Series,
             view: str = 'results'
-            ) -> None | ValueError:
+            ) -> None:
         '''
         Assesses the performance of forecast models using various metrics.
 
@@ -514,9 +529,9 @@ class Zeit:
 
         Parameters:
         ----------
-        forecast_results : list of tuples
-            A list containing tuples where each tuple consists of a model name (str) and the corresponding 
-            forecasted data (pandas.Series).
+        forecast_models : list of tuples
+            A list containing tuples where each tuple consists of a model name (str) and the
+            corresponding forecasted data (pandas.Series).
 
         test_data : pandas.Series
             The actual test dataset containing the true values for comparison.
@@ -532,16 +547,20 @@ class Zeit:
 
         Example:
         --------
-        >>> forecast_results = [
-        >>>     ('SARIMA', sarima_forecast),
-        >>>     ('Prophet', prophet_forecast)
-        >>> ]
-        >>> zo.evaluate(forecast_results, test_data)
+        In [11]: forecast_models = [
+        ...:    ('SARIMA', sarima_forecast),
+        ...:    ('Prophet', prophet_forecast)
+        ...:    ]
+        In [12]: zo.evaluate(forecast_models, test_data)
         '''    
         # Inserting the test set to form the first column of the comparison DataFrame
-        df_comp = pd.DataFrame(data = test_data.values, index = test_data.index, columns = ['Actual'])
+        df_comp = pd.DataFrame(
+            data = test_data.values, 
+            index = test_data.index, 
+            columns = ['Actual']
+            )
         
-        for model, forecast_data in forecast_results:
+        for model, forecast_data in forecast_models:
             # Computing the performance according to different parameters
             mse = mean_squared_error(test_data, forecast_data)
             rmse = root_mean_squared_error(test_data, forecast_data)
@@ -563,5 +582,8 @@ class Zeit:
         elif view == 'results':
             display(df_comp.head(10).T)
         else:
-            raise ValueError("This option is not available! :(\nPlease choose whether you want to display the performance inserting "
-                  "\033[1m'metrics'\033[0m or \033[1m'results'\033[0m in case of forecast comparison.")
+            raise ValueError(
+                "This option is not available! :(\nPlease choose whether you want to display the"
+                " performance inserting \033[1m'metrics'\033[0m or \033[1m'results'\033[0m in case"
+                " of forecast comparison."
+                )
