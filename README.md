@@ -1,6 +1,6 @@
 # zeitpy
 
-ZeitPy is a package for time series analysis. Its main purpose is to abstract some vital operations to analyse time series data. At its core is the `Zeit` class, which provides attributes and methods for initializing a (Pandas) time series, performing Exploratory Data Analysis (Augmented Dickey-Fuller test, visualize periodograms, seasonal, and lag plots, etc.), forecasting and performance assessment
+ZeitPy is a package for time series analysis. Its main purpose is to abstract some vital operations to analyse time series data. At its core is the `Zeit` class, which provides attributes and methods for initializing a (Pandas) time series, performing Exploratory Data Analysis (Augmented Dickey-Fuller test, visualize periodograms, seasonal, and lag plots, etc.), forecasting and performance assessment.
 
 ---
 
@@ -67,7 +67,7 @@ Out[2]:
 2024-09-11    351528
 Freq: D, Name: sales, dtype: int32
 ```
-📑 You can view all operations provided by the `Zeit` class implemented in `examples.ipynb`.
+📑 You can view all operations provided by the `Zeit` class implemented [here](https://github.com/domingosdeeulariadumba/ZeitPy/examples.ipynb).
 
 ---
 
@@ -79,11 +79,13 @@ This project is licensed under the MIT `LICENSE`.
 
 ## Issues and Contributions 🧱
 
-Feel free to [submit any issue](https://github.com/domingosdeeulariadumba/ZeitPy/issues) you may find in this package or recommend additional features not listed in `TODO.md`. If you find this useful, please fork the repository, create a feature branch, and submit a pull request.
+Feel free to [submit any issue](https://github.com/domingosdeeulariadumba/ZeitPy/issues) you may find in this package or recommend additional features not already listed [here](https://github.com/domingosdeeulariadumba/ZeitPy/TODO.md). If you find this useful, please fork the repository, create a feature branch, and submit a pull request.
 
 ---
 ## Connect with me 🌐
 
 <img src = 'https://i.postimg.cc/t4vNmLB0/linktree-icon.png' width = '25' height = '25'/>  **[/domingosdeeulariadumba](https://linktr.ee/domingosdeeulariadumba)**
+
 <img src = 'https://i.postimg.cc/wj3w1mjG/kofi-icon.png' width = '25' height = '25'/>  **[/domingosdeeulariadumba](https://ko-fi.com/domingosdeeulariadumba)**
+
 <img src = 'https://i.postimg.cc/W1178266/linkedin-icon.png' width = '25' height = '25'/>  **[/domingosdeeulariadumba](https://linkedin.com/in/domingosdeeulariadumba/)**
