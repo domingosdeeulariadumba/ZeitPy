@@ -8,9 +8,7 @@ version = "0.1.1"
 description = "A package for time series analysis — from EDA to forecasting and performance assessment."
 readme = "README.md"
 license = { file = "LICENSE" }
-authors = [
-  { name = "Domingos de Eulária Dumba", email = "domingosdeeulariadumba@gmail.com" }
-]
+author = "Domingos de Eulária Dumba <domingosdeeulariadumba@gmail.com>"
 requires-python = ">=3.12.7"
 dependencies = [
   "numpy>=1.26.4",
