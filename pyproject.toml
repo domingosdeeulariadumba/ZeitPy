@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zeitpy"
-version = "0.1.2"
+version = "0.1.1"
 description = "A package for time series analysis — from EDA to forecasting and performance assessment."
 readme = "README.md"
 license = { file = "LICENSE" }
