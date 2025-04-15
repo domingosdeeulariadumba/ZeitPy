@@ -1,3 +1,29 @@
 [build-system]
-requires = ["setuptools>=75.1.0"]
+requires = ["setuptools>=78.1.0", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "zeitpy"
+version = "0.1.1"
+description = "A package for time series analysis — from EDA to forecasting and performance assessment."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Domingos de Eulária Dumba", email = "domingosdeeulariadumba@gmail.com" }
+]
+requires-python = ">=3.12.7"
+dependencies = [
+  "numpy>=1.26.4",
+  "pandas>=2.2.2",
+  "scipy>=1.13.1",
+  "scikit-learn>=1.5.1",
+  "matplotlib>=3.9.2",
+  "seaborn>=0.13.2",
+  "statsmodels>=0.14.2"
+]
+
+[project.urls]
+Homepage = "https://github.com/domingosdeeulariadumba.com/ZeitPy"
+
+[tool.setuptools.packages.find]
+where = ["."]

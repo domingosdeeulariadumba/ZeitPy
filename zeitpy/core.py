@@ -33,14 +33,14 @@ class Zeit:
     def __init__(
             self, dataset: pd.DataFrame | pd.Series | str, date_format: str = None, 
             date_col: str = None, data_col: str = None
-            ) -> Self:
+            ):
         '''
         Initializes a Zeit object given a Pandas Series/DataFrame or csv file.
 
-        Parameters:
+        Parameters and:
         ---------- 
         dataset : str
-            The DataFrame, Series or csv file file path containing the time series.
+            The DataFrame, Series or csv file path containing the time series data.
         date_format : str
             The format of the "date_col" instances to be converted into datetime — Ex.: '20' 
             should be passed as '%y' for annual observations; '10/27/2019' as '%m/%d/%Y', etc.
@@ -48,14 +48,9 @@ class Zeit:
             The column containing the time observations.
         data_col : str
             The column containing the values of the series.
-
-        Returns:
-        -------
-        pd.Series
-            The Pandas time series.
         
-        Example:
-        --------
+        Example with 'data' attribute:
+        ------------------------------
         In [1]: import zeitpy as zp
         ...: file_path = 'ibovespa_stock.csv'
         ...: zo = zp.Zeit(
@@ -72,13 +67,14 @@ class Zeit:
         2018-01-05    79071.0
         2018-01-08    79379.0
         Name: Close, dtype: float64
-        '''
+        '''  
+        # Class attributes
         self.dataset = dataset
         self.format = date_format
         self.ts_attr = date_col, data_col
         self.data = self.inject()
-  
 
+    # Class methods
     def inject(self) -> pd.Series:
         '''
         Transforms any time series data whether it is a Pandas Series/DataFrame or csv file into a Pandas
@@ -138,15 +134,14 @@ class Zeit:
         Parameters:
         ----------        
         model : str, optional
-            The type of seasonal decomposition, whether it Additive or Multiplicative — 'additive'
-            and 'multiplicative. Default is 'additive'. 
+            The type of seasonal decomposition, whether it is Additive ('additive') or Multiplicative 
+            ('multiplicative'). Default is 'additive'. 
         period : int, optional
             Period of the series (e.g., 1 for annual, 4 for quarterly, etc). Default is 12.
 
         Returns:
         -------
         None
-            The function displays the periodogram plot and does not return any value.
         
         Example:
         --------
@@ -440,7 +435,7 @@ class Zeit:
         
     def split_data(self, train_proportion: float = .8) -> tuple[Self, Self]:
         '''
-        Splits a Series into training and testing sets.
+        Splits a Series into trainining and testing sets.
 
         This method divides the provided Series into two subsets: a training set and a testing set,
         based on a specified proportion. The training set contains the first portion of the data, while
@@ -475,7 +470,7 @@ class Zeit:
         Plots the Autocorrelation Function (ACF) and Partial Autocorrelation Function (PACF) of a time
         series.
 
-        This function generates correlograms to help assess the autocorrelation and partial autocorrelation 
+        This method generates correlograms to help assess the autocorrelation and partial autocorrelation 
         of the time series, which are crucial for identifying the orders of Autoregressive (AR) and Moving
         Average (MA) components in time series models.
 
@@ -551,10 +546,11 @@ class Zeit:
         ...:    ('SARIMA', sarima_forecast),
         ...:    ('Prophet', prophet_forecast)
         ...:    ]
-        In [12]: zo.evaluate(forecast_models, test_data)
+        ...: test_data = test.data
+        ...: zo.evaluate(forecast_models, test_data)
         '''    
         # Inserting the test set to form the first column of the comparison DataFrame
-        df_comp = pd.DataFrame(
+        comparison_df = pd.DataFrame(
             data = test_data.values, 
             index = test_data.index, 
             columns = ['Actual']
@@ -569,21 +565,21 @@ class Zeit:
             metrics_scores = [mse, rmse, mae, mape]
             metrics = ['MSE', 'RMSE', 'MAE', 'MAPE']
             temp_df = pd.DataFrame({model: metrics_scores}, index = metrics)
-            df_metrics = pd.concat([temp_df], axis = 1)
+            metrics_df = pd.concat([temp_df], axis = 1)
             
             # Adding the forecast to the comparison DataFrame
-            df_comp[model] = forecast_data 
+            comparison_df[model] = forecast_data 
             
         # Option to display the transposed performance metrics DataFrame 
         if view == 'metrics':
-            display(df_metrics.T)
+            display(metrics_df.T)
             
         # Option to display the transposed comparison DataFrame 
         elif view == 'results':
-            display(df_comp.head(10).T)
+            display(comparison_df.head(10).T)
         else:
             raise ValueError(
                 "This option is not available! :(\nPlease choose whether you want to display the"
-                " performance inserting \033[1m'metrics'\033[0m or \033[1m'results'\033[0m in case"
-                " of forecast comparison."
+                " performance assessment inserting \033[1m'metrics'\033[0m or \033[1m'results'\033[0m "
+                "in case of forecast comparison."
                 )
