@@ -389,7 +389,7 @@ class Zeit:
             ax.legend()
             ax.grid(True) 
         plt.tight_layout()
-        plt.suptitle(title, y=1.05)
+        plt.suptitle(title, y = 1.05)
         plt.show()
 
 
