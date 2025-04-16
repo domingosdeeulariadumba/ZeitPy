@@ -4,7 +4,7 @@
 '''
 
 import pandas as pd
-import matplotlib
+import matplotlib as mpl
 import seaborn as sns
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
@@ -199,7 +199,7 @@ class Zeit:
     
     
     def periodogram(
-            self, detrend: str = 'linear', ax: matplotlib.axes._axes.Axes = None,
+            self, detrend: str = 'linear', ax: mpl.axes._axes.Axes = None,
             fs: int = 365, color: str = 'brown'
             ) -> None:     
         '''
@@ -263,7 +263,7 @@ class Zeit:
 
 
     def seasonal_plots(
-            self, period: str, freq: str, ax: matplotlib.axes._axes.Axes = None, 
+            self, period: str, freq: str, ax: mpl.axes._axes.Axes = None, 
             title: str = None, xlabel: str = None, ylabel: str = None
             ) -> None:   
         '''

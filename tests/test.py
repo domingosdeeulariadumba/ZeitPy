@@ -1,4 +1,4 @@
-"""Tests for 'zeitpy` package."""
+"""Tests for 'zeitpy' package."""
 
 # Imports
 import zeitpy as zp
