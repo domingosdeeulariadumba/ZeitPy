@@ -40,10 +40,10 @@ In [1]: import zeitpy as zp
 **`pip install zeitpy`**
 
 #### Installation of source distribution (.tar.gz)
-**`pip install path/to/zeitpy-0.1.1.tar.gz`**
+**`pip install path/to/zeitpy-0.1.2.tar.gz`**
 
 #### Installation of pre-built distribution (.whl)
-**`pip install path/to/zeitpy-0.1.1-py3-none-any.whl`**
+**`pip install path/to/zeitpy-0.1.2-py3-none-any.whl`**
 
 #### Cloning the package repository
 **`git clone https://github.com/domingosdeeulariadumba/ZeitPy.git`**
