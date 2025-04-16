@@ -67,7 +67,7 @@ Out[2]:
 2024-09-11    351528
 Freq: D, Name: sales, dtype: int32
 ```
-📑 You can view all operations provided by the `Zeit` class implemented [here](https://github.com/domingosdeeulariadumba/ZeitPy/examples.ipynb).
+📑 You can view all operations provided by the `Zeit` class implemented [here](https://github.com/domingosdeeulariadumba/ZeitPy/blob/main/examples.ipynb).
 
 ---
 
@@ -79,7 +79,7 @@ This project is licensed under the MIT `LICENSE`.
 
 ## Issues and Contributions 🧱
 
-Feel free to [submit any issue](https://github.com/domingosdeeulariadumba/ZeitPy/issues) you may find in this package or recommend additional features not already listed [here](https://github.com/domingosdeeulariadumba/ZeitPy/TODO.md). If you find this useful, please fork the repository, create a feature branch, and submit a pull request.
+Feel free to [submit any issue](https://github.com/domingosdeeulariadumba/ZeitPy/issues) you may find in this package or recommend additional features not already listed [here](https://github.com/domingosdeeulariadumba/ZeitPy/blob/main/TODO.md). If you find this useful, please fork the repository, create a feature branch, and submit a pull request.
 
 ---
 ## Connect with me 🌐
