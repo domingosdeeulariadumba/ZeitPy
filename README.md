@@ -1,4 +1,4 @@
-# zeitpy
+# ZeitPy
 
 ZeitPy is a package for time series analysis. Its main purpose is to abstract some vital operations to analyse time series data. At its core is the `Zeit` class, which provides attributes and methods for initializing a (Pandas) time series, performing Exploratory Data Analysis (Augmented Dickey-Fuller test, visualize periodograms, seasonal, and lag plots, etc.), forecasting and performance assessment.
 

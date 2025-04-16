@@ -252,7 +252,7 @@ class Zeit:
         # Plotting the periodogram
         if ax is None:
             _, ax = plt.subplots()        
-        ax.step(frequencies, spectrum, color=color)
+        ax.step(frequencies, spectrum, color = color)
         ax.set_xscale('log')
         ax.set_xticks(freqs)
         ax.set_xticklabels(freqs_labels, rotation = 55, fontsize = 11)
