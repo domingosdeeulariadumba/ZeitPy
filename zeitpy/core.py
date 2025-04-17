@@ -254,8 +254,7 @@ class Zeit:
             _, ax = plt.subplots()        
         ax.step(frequencies, spectrum, color = color)
         ax.set_xscale('log')
-        ax.set_xticks(freqs)
-        ax.set_xticklabels(freqs_labels, rotation = 55, fontsize = 11)
+        ax.set_xticks(ticks = freqs, labels = freqs_labels, rotation = 55, fontsize = 11)
         ax.ticklabel_format(axis = 'y', style = 'sci', scilimits = (0, 0))
         ax.set_ylabel('Variance', fontsize = 12)
         ax.set_title(f'Periodogram ({nobs} Observations)')
@@ -375,7 +374,7 @@ class Zeit:
         '''
         ts = self.data    
         fig, axes = plt.subplots(
-            2, n_lags // 2, figsize = (10, 6), sharex = False, sharey = True, dpi = 240
+            2, n_lags // 2, figsize = (10, 6), sharey = True, dpi = 240
             )
         for i, ax in enumerate(axes.flatten()[:n_lags]):
             lag_data = pd.DataFrame({'x': ts, 'y': ts.shift(i + 1)}).dropna()
@@ -412,17 +411,19 @@ class Zeit:
         '''
         # Performing the Augmented Dickey-Fuller Test    
         adft = adfuller(self.data, autolag = 'AIC')
-         
-        # DataFrame to store the results of the test    
-        scores_df = pd.DataFrame({'Scores': [adft[0], adft[1], 
-                                             adft[2], adft[3], adft[4]['1%'],
-                                             adft[4]['5%'], adft[4]['10%']]},
-                                 index = ['Test Statistic',
-                                          'p-value', 'Lags Used',
-                                          'Observations', 
-                                          'Critical Value (1%)',
-                                        'Critical Value (5%)',
-                                        'Critical Value (10%)'])
+
+        # Storing the results of the test in a DataFrame  
+        data = {
+            'Scores': [
+                adft[0], adft[1], adft[2], adft[3], 
+                adft[4]['1%'], adft[4]['5%'], adft[4]['10%']
+                ]
+            }
+        index = [
+            'Test Statistic', 'p-value', 'Lags Used', 'Observations',
+             'Critical Value (1%)', 'Critical Value (5%)', 'Critical Value (10%)'
+             ] 
+        scores_df = pd.DataFrame(data, index = index)
          
         # Printing the result of the test    
         if adft[1] > 0.05 and abs(adft[0]) > adft[4]['5%']:
