@@ -1,6 +1,6 @@
 # Changelog
 
-Update your installation to the latest version:
+Update your ZeitPy installation to the latest version of:
 
 === "pip"
 
