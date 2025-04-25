@@ -9,5 +9,5 @@ Update your ZeitPy installation to the latest version of:
     pip install zeitpy --upgrade
     ```
 
-## 0.5.0
+## 0.1.1
 **April 15, 2025**
