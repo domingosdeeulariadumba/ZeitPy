@@ -37,7 +37,7 @@ class Zeit:
         '''
         Initializes a Zeit object given a Pandas Series/DataFrame or csv file.
 
-        Parameters and:
+        Parameters:
         ---------- 
         dataset : str
             The DataFrame, Series or csv file path containing the time series data.
